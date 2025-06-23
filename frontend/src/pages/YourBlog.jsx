@@ -29,47 +29,48 @@ const YourBlog = () => {
   const { blog } = useSelector((store) => store.blog);
   console.log(blog);
 
-    const getOwnBlog = async () => {
-        try {
-            const res = await axios.get(`http://localhost:3000/api/v1/blog/get-all-blogs`, { withCredentials: true })
-            if (res.data.success) {
-                dispatch(setBlog(res.data.blogs))
-            }
-        } catch (error) {
-            console.log(error);
-
-        }
+  const getOwnBlog = async () => {
+    try {
+      const res = await axios.get(
+        `https://blog-mern-aoc0.onrender.com/api/v1/blog/get-all-blogs`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        dispatch(setBlog(res.data.blogs));
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-
-    const deleteBlog = async (id) => {
-        try {
-            const res = await axios.delete(`http://localhost:3000/api/v1/blog/delete/${id}`, { withCredentials: true })
-            if (res.data.success) {
-                const updatedBlogData = blog.filter((blogItem) => blogItem?._id !== id);
-                dispatch(setBlog(updatedBlogData))
-                toast.success(res.data.message)
-            }
-            console.log(res.data.message);
-
-        } catch (error) {
-            console.log(error);
-            toast.error("something went error")
-        }
-
+  const deleteBlog = async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://blog-mern-aoc0.onrender.com/api/v1/blog/delete/${id}`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        const updatedBlogData = blog.filter((blogItem) => blogItem?._id !== id);
+        dispatch(setBlog(updatedBlogData));
+        toast.success(res.data.message);
+      }
+      console.log(res.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error("something went error");
     }
+  };
 
-    useEffect(() =>{
-      getOwnBlog()
-    },[])
+  useEffect(() => {
+    getOwnBlog();
+  }, []);
 
   const formatDate = (index) => {
-        const date = new Date(blog[index].createdAt)
-        const formattedDate = date.toLocaleDateString("en-GB");
-        return formattedDate
-        // console.log("formattedDate", date);
-
-    }
+    const date = new Date(blog[index].createdAt);
+    const formattedDate = date.toLocaleDateString("en-GB");
+    return formattedDate;
+    // console.log("formattedDate", date);
+  };
   return (
     <div className="pb-10 pt-20 md:ml-[320px] h-screen">
       <div className="max-w-6xl mx-auto mt-8 ">

@@ -51,7 +51,7 @@ const CommentBox = ({ selectedBlog }) => {
     const getAllCommentsOfBlog = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/v1/comment/${selectedBlog._id}/comment/all`
+          `https://blog-mern-aoc0.onrender.com/api/v1/comment/${selectedBlog._id}/comment/all`
         );
         const data = res.data.comments;
         dispatch(setComment(data));
@@ -65,7 +65,7 @@ const CommentBox = ({ selectedBlog }) => {
   const commentHandler = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/comment/${selectedBlog._id}/create`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/comment/${selectedBlog._id}/create`,
         { content },
         {
           headers: {
@@ -103,7 +103,7 @@ const CommentBox = ({ selectedBlog }) => {
   const deleteComment = async (commentId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/v1/comment/${commentId}/delete`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/comment/${commentId}/delete`,
         {
           withCredentials: true,
         }
@@ -126,7 +126,7 @@ const CommentBox = ({ selectedBlog }) => {
   const editCommentHandler = async (commentId) => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/v1/comment/${commentId}/edit`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/comment/${commentId}/edit`,
         { content: editedContent },
         {
           withCredentials: true,
@@ -154,7 +154,7 @@ const CommentBox = ({ selectedBlog }) => {
   const likeCommentHandler = async (commentId) => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/comment/${commentId}/like`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/comment/${commentId}/like`,
         {
           withCredentials: true,
         }

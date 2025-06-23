@@ -31,15 +31,18 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const { theme } = useSelector((store) => store.theme);
   const [searchTerm, setSearchTerm] = useState("");
-  const [openNav, setOpenNav] = useState(false)
+  const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const logoutHandler = async (e) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/user/logout`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `https://blog-mern-aoc0.onrender.com/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         navigate("/");
         dispatch(setUser(null));
@@ -179,7 +182,11 @@ const Navbar = () => {
             <HiMenuAlt1 onClick={toggleNav} className="w-7 h-7 md:hidden" />
           )}
         </nav>
-        <ResponsiveMenu openNav={openNav} setOpenNav={setOpenNav} logoutHandler={logoutHandler}/>
+        <ResponsiveMenu
+          openNav={openNav}
+          setOpenNav={setOpenNav}
+          logoutHandler={logoutHandler}
+        />
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const BlogView = () => {
   const { user } = useSelector((store) => store.auth);
   const selectedBlog = blog.find((blog) => blog._id === blogId);
   const [blogLike, setBlogLike] = useState(selectedBlog?.likes.length);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [liked, setLiked] = useState(
     selectedBlog?.likes.includes(user?._id) || false
   );
@@ -36,7 +36,7 @@ const BlogView = () => {
     try {
       const action = liked ? "dislike" : "like";
       const res = await axios.get(
-        `http://localhost:3000/api/v1/blog/${selectedBlog?._id}/${action}`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/blog/${selectedBlog?._id}/${action}`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -59,7 +59,7 @@ const BlogView = () => {
         dispatch(setBlog(updatedBlogData));
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 

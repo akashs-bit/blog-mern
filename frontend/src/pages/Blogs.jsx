@@ -5,23 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBlog } from "../redux/blogSlice.js";
 
 const Blogs = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const { blog } = useSelector((store) => store.blog);
 
-   useEffect(() => {
-        const getAllPublsihedBlogs = async () => {
-            try {
-                const res = await axios.get(`http://localhost:3000/api/v1/blog/get-published-blogs`, { withCredentials: true })
-                if (res.data.success) {
-                    dispatch(setBlog(res.data.blogs))
-                }
-            } catch (error) {
-                console.log(error);
-
-            }
+  useEffect(() => {
+    const getAllPublsihedBlogs = async () => {
+      try {
+        const res = await axios.get(
+          `https://blog-mern-aoc0.onrender.com/api/v1/blog/get-published-blogs`,
+          { withCredentials: true }
+        );
+        if (res.data.success) {
+          dispatch(setBlog(res.data.blogs));
         }
-        getAllPublsihedBlogs()
-    },[])
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllPublsihedBlogs();
+  }, []);
   return (
     <div className="pt-16">
       <div className="max-w-6xl mx-auto text-center flex flex-col space-y-4 items-center">

@@ -45,7 +45,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/user/login`,
+        `https://blog-mern-aoc0.onrender.com/api/v1/user/login`,
         input,
         {
           headers: {
@@ -57,7 +57,7 @@ const Login = () => {
 
       if (response.data.success) {
         navigate("/");
-        dispatch(setUser(response.data.user))
+        dispatch(setUser(response.data.user));
         toast.success(response.data.message);
       }
     } catch (error) {

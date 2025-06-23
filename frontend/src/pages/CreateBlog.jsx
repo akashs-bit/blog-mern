@@ -29,38 +29,37 @@ const CreateBlog = () => {
   const getSelectedCategory = (value) => {
     setCategory(value);
   };
-  
-const createBlogHandler = async () => {
-  try {
-    setLoading(true);
-    const res = await axios.post(
-      `http://localhost:3000/api/v1/blog/`,
-      { title, category },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
+
+  const createBlogHandler = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `https://blog-mern-aoc0.onrender.com/api/v1/blog/`,
+        { title, category },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      // console.log("🔄 Response from blog creation:", res);
+
+      if (res.data?.success) {
+        const updatedBlog = [...(blog || []), res.data.blog];
+        dispatch(setBlog(updatedBlog));
+        navigate(`/dashboard/write-blog/${res.data.blog._id}`);
+        toast.success(res.data.message || "Blog created successfully");
+      } else {
+        toast.error("Something went wrong in response");
       }
-    );
-
-    // console.log("🔄 Response from blog creation:", res);
-
-    if (res.data?.success) {
-      const updatedBlog = [...(blog || []), res.data.blog];
-      dispatch(setBlog(updatedBlog));
-      navigate(`/dashboard/write-blog/${res.data.blog._id}`);
-      toast.success(res.data.message || "Blog created successfully");
-    } else {
-      toast.error("Something went wrong in response");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    toast.error(error?.response?.data?.message || "Something went wrong");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="p-4 md:pr-20 h-screen md:ml-[320px] pt-20">
