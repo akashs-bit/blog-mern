@@ -7,9 +7,10 @@ A full-stack **MERN Blog Application** built using:
 - **React.js**
 - **Node.js**
 
-## 🌐 Live Website
+# MERN_BLOG Website 🚀
 
-👉 [Visit the Live App](https://blog-mern-aoc0.onrender.com)
+🔗 **Live Website:** [https://blog-mern-aoc0.onrender.com](https://blog-mern-aoc0.onrender.com)
+
 
 ## 🚀 Features
 
