@@ -13,7 +13,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const _dirname = path.resolve();
+const __dirname = path.resolve();
+
 
 // Middleware
 app.use(express.json());
@@ -33,11 +34,12 @@ app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/comment", commentRoute);
 
 // Serve frontend
-app.use(express.static(path.join(_dirname, "frontend", "dist")));
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(_dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
+
 
 // Start server
 app.listen(PORT, () => {
