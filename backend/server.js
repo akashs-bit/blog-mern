@@ -12,15 +12,13 @@ import path from "path";
 dotenv.config();
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
-const __dirname = path.resolve();
 
-
-// Middleware
+// default middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 app.use(
   cors({
     origin: "https://blog-mern-aoc0.onrender.com",
@@ -28,20 +26,18 @@ app.use(
   })
 );
 
-// API routes
+const _dirname = path.resolve()
+
+//apis
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/comment", commentRoute);
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, "frontend", "dist")));
+app.use(express.static(path.join(_dirname, "/frontend/dist")))
+// app.get("*", (_, res)=>{
+//   res.sendFile(path.resolve(_dirname, "frontend","dist", "index.html"))
+// })
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
-
-
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   connectDB();
