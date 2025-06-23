@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import Blogs from './pages/Blogs'
@@ -15,73 +15,92 @@ import YourBlog from './pages/YourBlog'
 import BlogView from './pages/BlogView'
 import Footer from './components/Footer'
 import SearchList from './pages/SearchList'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { setUser } from '../redux/authSlice.js'
 // import { Toaster } from 'sonner'
 
 const App = () => {
+  const dispatch = useDispatch();
 
-  const router = createBrowserRouter ([
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("https://blog-mern-aoc0.onrender.com/api/v1/user/me", {
+          withCredentials: true,
+        });
+        dispatch(setUser(res.data.user));
+      } catch (err) {
+        dispatch(setUser(null));
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const router = createBrowserRouter([
     {
-      path:"/",
-      element: <><Navbar/><Home/></>
+      path: "/",
+      element: <><Navbar /><Home /></>
     },
     {
-      path:"/blogs",
-      element: <><Navbar/><Blogs/><Footer/></>
+      path: "/blogs",
+      element: <><Navbar /><Blogs /><Footer /></>
     },
     {
-      path:"/about",
-      element: <><Navbar/><About/><Footer/></>
+      path: "/about",
+      element: <><Navbar /><About /><Footer /></>
     },
     {
-      path:"/search",
-      element: <><Navbar/><SearchList/><Footer/></>
+      path: "/search",
+      element: <><Navbar /><SearchList /><Footer /></>
     },
     {
-      path:"/login",
-      element: <><Navbar/><Login/></>
+      path: "/login",
+      element: <><Navbar /><Login /></>
     },
     {
-      path:"/signup",
-      element: <><Navbar/><Signup/></>
+      path: "/signup",
+      element: <><Navbar /><Signup /></>
     },
     {
-      path:"/blogs/:blogId",
-      element:<><Navbar/><BlogView/></>
-    }
-    ,
+      path: "/blogs/:blogId",
+      element: <><Navbar /><BlogView /></>
+    },
     {
-      path:"/dashboard",
-      element: <><Navbar/><Dashboard/></>,
+      path: "/dashboard",
+      element: <><Navbar /><Dashboard /></>,
       children: [
         {
-          path:"profile",
-          element:<Profile/>
+          path: "profile",
+          element: <Profile />
         },
         {
-          path:"your-blog",
-          element:<YourBlog/>
+          path: "your-blog",
+          element: <YourBlog />
         },
         {
-          path:"comments",
-          element:<Comments/>
+          path: "comments",
+          element: <Comments />
         },
         {
-          path:"write-blog",
-          element:<CreateBlog/>
+          path: "write-blog",
+          element: <CreateBlog />
         },
         {
-          path:"write-blog/:blogId",
-          element:<UpdateBlog/>
+          path: "write-blog/:blogId",
+          element: <UpdateBlog />
         }
       ]
     }
-  ])
+  ]);
+
   return (
     <>
-     {/* <Toaster richColors position="top-center" /> */}
-    <RouterProvider router={router}/>
+      {/* <Toaster richColors position="top-center" /> */}
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
