@@ -9,7 +9,7 @@ A full-stack **MERN Blog Application** built using:
 
 # MERN_BLOG Website 🚀
 
-🔗 **Live Website:** [https://blog-mern-aoc0.onrender.com](https://blog-mern-aoc0.onrender.com)
+🔗 **Live Website:** [https://blog-mern-aoc0.onrender.com)
 
 
 ## 🚀 Features
